@@ -17,11 +17,12 @@ class AuthTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):
         data = super().validate(attrs)
-        refresh = self.get_token(self.user)
-        data["refresh"] = str(refresh)
-        data["access"] = str(refresh.access_token)
+        refresh = data.pop("refresh")
+        access = data.pop("access")
         data["user"] = {
             "username": self.user.username,
             "email": self.user.email,
+            "refresh": refresh,
+            "access": access,
         }
         return data

@@ -42,4 +42,3 @@ class APIViewTestCase(TestCase):
 
     view_post = client_action_wrapper("post")
     view_get = client_action_wrapper("get")
-

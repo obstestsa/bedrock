@@ -81,8 +81,8 @@ class TestAuthTokenObtainPairSerializer(TestCase):
         )
 
         self.assertTrue(serializer.is_valid())
-        self.assertIn("access", serializer.validated_data)
-        self.assertIn("refresh", serializer.validated_data)
+        self.assertIn("access", serializer.validated_data.get("user"))
+        self.assertIn("refresh", serializer.validated_data.get("user"))
 
     def test_it_should_provide_correct_token_subclass(self):
         """
@@ -96,8 +96,8 @@ class TestAuthTokenObtainPairSerializer(TestCase):
         self.assertTrue(serializer.is_valid())
 
         # Should raise TokenError if invalid token type
-        AccessToken(serializer.validated_data["access"])
-        RefreshToken(serializer.validated_data["refresh"])
+        AccessToken(serializer.validated_data["user"]["access"])
+        RefreshToken(serializer.validated_data["user"]["refresh"])
 
     def test_it_should_provide_extra_response_when_data_valid(self):
         """

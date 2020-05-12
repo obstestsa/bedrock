@@ -83,9 +83,9 @@ class TestAuthTokenObtainPairView(APIViewTestCase):
             'password': self.password
         })
         self.assertEqual(result.status_code, 200)
-        self.assertIn('access', result.data)
-        self.assertIn('refresh', result.data)
+        self.assertIn('access', result.data["user"])
+        self.assertIn('refresh', result.data["user"])
 
-        payload = token_backend.decode(result.data['access'])
+        payload = token_backend.decode(result.data["user"]['access'])
         for attributes in user_attributes:
             self.assertIn(attributes, payload)
