@@ -10,8 +10,7 @@ from authenticate.serializers import AuthTokenObtainPairSerializer
 
 
 class TestAuthTokenObtainPairSerializer(TestCase):
-    """
-    Tests for Token Obtain Serializer
+    """Tests for Token Obtain Serializer
     """
 
     def setUp(self):
@@ -23,8 +22,7 @@ class TestAuthTokenObtainPairSerializer(TestCase):
         )
 
     def test_it_should_not_validate_if_any_fields_missing(self):
-        """
-        Should not validate when any of the fields is not providded
+        """Should not validate when any of the fields is not providded
         """
         # empty data
         serializer = AuthTokenObtainPairSerializer(data={})
@@ -45,8 +43,7 @@ class TestAuthTokenObtainPairSerializer(TestCase):
         self.assertIn("username", serializer.errors)
 
     def test_it_should_not_validate_if_user_not_found(self):
-        """
-        Exception should be raised when user is not found
+        """Exception should be raised when user is not found
         """
         serializer = AuthTokenObtainPairSerializer(
             data={
@@ -59,8 +56,7 @@ class TestAuthTokenObtainPairSerializer(TestCase):
             serializer.is_valid()
 
     def test_it_should_raise_if_user_not_active(self):
-        """
-        Exception should be raised when user is not active
+        """Exception should be raised when user is not active
         """
         self.user.is_active = False
         self.user.save()
@@ -73,8 +69,7 @@ class TestAuthTokenObtainPairSerializer(TestCase):
             serializer.is_valid()
 
     def test_it_should_provide_a_token_when_data_valid(self):
-        """
-        Token should be provided with valid data
+        """Token should be provided with valid data
         """
         serializer = AuthTokenObtainPairSerializer(
             data={"username": self.username, "password": self.password}
@@ -85,8 +80,7 @@ class TestAuthTokenObtainPairSerializer(TestCase):
         self.assertIn("refresh", serializer.validated_data.get("user"))
 
     def test_it_should_provide_correct_token_subclass(self):
-        """
-        When token type is correct, intantiation of proper token subclass
+        """When token type is correct, intantiation of proper token subclass
         should not raise exception
         """
         serializer = AuthTokenObtainPairSerializer(
@@ -100,8 +94,7 @@ class TestAuthTokenObtainPairSerializer(TestCase):
         RefreshToken(serializer.validated_data["user"]["refresh"])
 
     def test_it_should_provide_extra_response_when_data_valid(self):
-        """
-        Extra responses should be provided with valid data
+        """Extra responses should be provided with valid data
         """
         serializer = AuthTokenObtainPairSerializer(
             data={"username": self.username, "password": self.password}

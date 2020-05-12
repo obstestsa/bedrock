@@ -7,8 +7,7 @@ from authenticate.tests.utils import APIViewTestCase
 
 
 class TestAuthTokenObtainPairView(APIViewTestCase):
-    """
-    Tests for Auth Token Obtain Pair View
+    """Tests for Auth Token Obtain Pair View
     """
     view_name = 'token_obtain_pair'
 
@@ -22,8 +21,7 @@ class TestAuthTokenObtainPairView(APIViewTestCase):
         )
 
     def test_it_should_return_400_if_any_fields_missing(self):
-        """
-        Tests for missing fields
+        """Tests for missing fields
         """
         # empty data
         result = self.view_post(data={})
@@ -46,8 +44,7 @@ class TestAuthTokenObtainPairView(APIViewTestCase):
         self.assertIn('username', result.data)
 
     def test_it_should_return_401_if_credential_wrong(self):
-        """
-        Test for wrong credentials
+        """Test for wrong credentials
         """
         result = self.view_post(data={
             'username': self.username,
@@ -57,8 +54,7 @@ class TestAuthTokenObtainPairView(APIViewTestCase):
         self.assertIn('detail', result.data)
 
     def test_it_should_return_401_if_user_inactive(self):
-        """
-        Test when user is inactive
+        """Test when user is inactive
         """
         self.user.is_active = False
         self.user.save()
@@ -71,8 +67,7 @@ class TestAuthTokenObtainPairView(APIViewTestCase):
         self.assertIn('detail', result.data)
 
     def test_it_should_validate_when_payload_correct(self):
-        """
-        Test when payload is okay
+        """Test when payload is okay
         """
         user_attributes = [
             "username",
