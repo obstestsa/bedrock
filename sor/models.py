@@ -7,7 +7,7 @@ class Label(models.Model):
     """A label or tag for servers
     """
 
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=25, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -59,14 +59,14 @@ class Environment(models.Model):
     """
 
     class Category(models.TextChoices):
-        DEVELOP = "DEV", "Develop"
-        TESTING = "QA", "Testing"
-        STAGING = "UAT", "Staging"
-        PRODUCTION = "PRD", "Production"
+        DEVELOP = "DEV", "Development"
+        TESTING = "BETA", "Testing"
+        STAGING = "STAGE", "Staging"
+        PRODUCTION = "PROD", "Production"
 
     name = models.CharField(max_length=25, unique=True)
     category = models.CharField(
-        max_length=3, choices=Category.choices, default=Category.DEVELOP
+        max_length=5, choices=Category.choices, default=Category.DEVELOP
     )
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -85,9 +85,9 @@ class Domain(models.Model):
     """
 
     class Status(models.TextChoices):
-        ACTIVE = "AC", "Active"
-        INACTIVE = "IN", "Inactive"
-        DECOM = "DE", "Decom"
+        ACTIVE = "ACTIVE", "Active"
+        INACTIVE = "INACTIVE", "Inactive"
+        DECOM = "DECOM", "Decom"
 
     name = models.CharField(max_length=253, unique=True)
     location = models.CharField(max_length=50, null=True, blank=True)
@@ -96,7 +96,7 @@ class Domain(models.Model):
     )
     description = models.TextField(null=True, blank=True)
     status = models.CharField(
-        max_length=2, choices=Status.choices, default=Status.ACTIVE
+        max_length=8, choices=Status.choices, default=Status.ACTIVE
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -114,9 +114,9 @@ class OperatingSystem(models.Model):
     """
 
     class Family(models.TextChoices):
-        LINUX = "LI", "Linux"
-        UNIX = "UN", "Unix"
-        WINDOWS = "WN", "Windows"
+        LINUX = "LINUX", "Linux"
+        UNIX = "UNIX", "Unix"
+        WINDOWS = "WINDOWS", "Windows"
 
     class Architecture(models.TextChoices):
         X86 = "32", "X86"
@@ -124,7 +124,7 @@ class OperatingSystem(models.Model):
 
     name = models.CharField(max_length=100)
     family = models.CharField(
-        max_length=2, choices=Family.choices, default=Family.LINUX
+        max_length=7, choices=Family.choices, default=Family.LINUX
     )
     architecture = models.CharField(
         max_length=2, choices=Architecture.choices, default=Architecture.X64
@@ -146,24 +146,24 @@ class Server(models.Model):
     """
 
     class Category(models.TextChoices):
-        MAIL = "MA", "Mail"
-        FTP = "FT", "FTP"
-        WEB = "WB", "Web"
-        PROXY = "PX", "Proxy"
-        APP = "AP", "Application"
-        BUILD = "BD", "Build"
+        MAIL = "MAIL", "Mail Server"
+        FTP = "FTP", "FTP Server"
+        WEB = "WEB", "Web Server"
+        PROXY = "PROXY", "Proxy Server"
+        APP = "APP", "Application Server"
+        BUILD = "BUILD", "Build Server"
 
     class Status(models.TextChoices):
-        ACTIVE = "AC", "Active"
-        INACTIVE = "IN", "Inactive"
-        DECOM = "DE", "Decom"
+        ACTIVE = "ACTIVE", "Active"
+        INACTIVE = "INACTIVE", "Inactive"
+        DECOM = "DECOM", "Decom"
 
     name = models.CharField(max_length=25, unique=True)
     ip_address = models.GenericIPAddressField(
         verbose_name="IP Address", unique=True
     )
     category = models.CharField(
-        max_length=2, choices=Category.choices, default=Category.WEB
+        max_length=5, choices=Category.choices, default=Category.WEB
     )
     owner = models.ForeignKey(
         Owner, related_name="servers", on_delete=models.PROTECT
@@ -182,9 +182,10 @@ class Server(models.Model):
     operating_system = models.ForeignKey(
         OperatingSystem, related_name="servers", on_delete=models.PROTECT
     )
+    labels = models.ManyToManyField(Label, related_name="servers")
     description = models.TextField(null=True, blank=True)
     status = models.CharField(
-        max_length=2, choices=Status.choices, default=Status.ACTIVE
+        max_length=8, choices=Status.choices, default=Status.INACTIVE
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -202,6 +203,9 @@ class Server(models.Model):
         return "{name}.{domain}".format(
             name=self.name, domain=self.domain.name
         )
+    
+    def get_environments(self):
+        return [environment.name for environment in self.environments.all()]
 
 
 class Product(models.Model):
