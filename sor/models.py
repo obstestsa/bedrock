@@ -197,15 +197,13 @@ class Server(models.Model):
     def __str__(self):
         return self.name
 
+    @property
     def fqdn(self):
         """Returns fully qualified domain name of server
         """
         return "{name}.{domain}".format(
             name=self.name, domain=self.domain.name
         )
-    
-    def get_environments(self):
-        return [environment.name for environment in self.environments.all()]
 
 
 class Product(models.Model):

@@ -1,0 +1,560 @@
+[
+{
+    "model": "sor.label",
+    "pk": 1,
+    "fields": {
+        "name": "monitored",
+        "created_at": "2020-05-14T04:21:07.010Z",
+        "updated_at": "2020-05-14T04:21:07.010Z"
+    }
+},
+{
+    "model": "sor.label",
+    "pk": 2,
+    "fields": {
+        "name": "upgrade",
+        "created_at": "2020-05-14T04:22:07.581Z",
+        "updated_at": "2020-05-14T04:22:07.581Z"
+    }
+},
+{
+    "model": "sor.label",
+    "pk": 3,
+    "fields": {
+        "name": "Setup-Pending",
+        "created_at": "2020-05-14T04:22:56.850Z",
+        "updated_at": "2020-05-14T04:22:56.850Z"
+    }
+},
+{
+    "model": "sor.label",
+    "pk": 4,
+    "fields": {
+        "name": "Cleanup",
+        "created_at": "2020-05-14T04:23:15.844Z",
+        "updated_at": "2020-05-14T04:23:15.844Z"
+    }
+},
+{
+    "model": "sor.label",
+    "pk": 5,
+    "fields": {
+        "name": "Blacklist",
+        "created_at": "2020-05-14T04:23:26.933Z",
+        "updated_at": "2020-05-14T04:23:26.934Z"
+    }
+},
+{
+    "model": "sor.owner",
+    "pk": 1,
+    "fields": {
+        "name": "DEVOPS",
+        "email": "devops-pa@cotiviti.com",
+        "description": "DevOps PA Waltham and Nepal Team",
+        "created_at": "2020-05-14T04:24:19.907Z",
+        "updated_at": "2020-05-14T04:24:19.907Z"
+    }
+},
+{
+    "model": "sor.owner",
+    "pk": 2,
+    "fields": {
+        "name": "IT",
+        "email": "support@cotiviti.com",
+        "description": "Infrastructure and Suppor Team",
+        "created_at": "2020-05-14T04:24:46.531Z",
+        "updated_at": "2020-05-14T04:24:46.531Z"
+    }
+},
+{
+    "model": "sor.owner",
+    "pk": 3,
+    "fields": {
+        "name": "DBA",
+        "email": "dba@cotiviti.com",
+        "description": "Database Team",
+        "created_at": "2020-05-14T04:25:02.714Z",
+        "updated_at": "2020-05-14T04:25:02.714Z"
+    }
+},
+{
+    "model": "sor.owner",
+    "pk": 4,
+    "fields": {
+        "name": "ADLM",
+        "email": "adlm@cotiviti.com",
+        "description": "ADLM Team",
+        "created_at": "2020-05-14T04:25:23.226Z",
+        "updated_at": "2020-05-14T04:25:23.226Z"
+    }
+},
+{
+    "model": "sor.owner",
+    "pk": 5,
+    "fields": {
+        "name": "CME",
+        "email": "CME@cotiviti.com",
+        "description": "ADLM Team",
+        "created_at": "2020-05-14T04:25:31.563Z",
+        "updated_at": "2020-05-14T04:25:31.563Z"
+    }
+},
+{
+    "model": "sor.cluster",
+    "pk": 1,
+    "fields": {
+        "name": "CILIN",
+        "description": "CI Linux Cluster",
+        "created_at": "2020-05-14T04:26:09.944Z",
+        "updated_at": "2020-05-14T04:26:09.944Z"
+    }
+},
+{
+    "model": "sor.cluster",
+    "pk": 2,
+    "fields": {
+        "name": "CDLIN",
+        "description": "CD Linux Cluster",
+        "created_at": "2020-05-14T04:26:20.715Z",
+        "updated_at": "2020-05-14T04:26:20.715Z"
+    }
+},
+{
+    "model": "sor.cluster",
+    "pk": 3,
+    "fields": {
+        "name": "CIWIN",
+        "description": "CI Windows Cluster",
+        "created_at": "2020-05-14T04:26:38.592Z",
+        "updated_at": "2020-05-14T04:26:38.592Z"
+    }
+},
+{
+    "model": "sor.cluster",
+    "pk": 4,
+    "fields": {
+        "name": "CDWIN",
+        "description": "CD Windows Cluster",
+        "created_at": "2020-05-14T04:26:47.264Z",
+        "updated_at": "2020-05-14T04:26:47.264Z"
+    }
+},
+{
+    "model": "sor.cluster",
+    "pk": 5,
+    "fields": {
+        "name": "BEDROCKWEB",
+        "description": "BEDROCK Web Cluster",
+        "created_at": "2020-05-14T04:27:10.146Z",
+        "updated_at": "2020-05-14T04:27:10.146Z"
+    }
+},
+{
+    "model": "sor.environment",
+    "pk": 1,
+    "fields": {
+        "name": "DEVELOP",
+        "category": "DEV",
+        "description": "Development environment",
+        "created_at": "2020-05-14T04:27:47.362Z",
+        "updated_at": "2020-05-14T04:27:47.362Z"
+    }
+},
+{
+    "model": "sor.environment",
+    "pk": 2,
+    "fields": {
+        "name": "QA",
+        "category": "BETA",
+        "description": "Testing environment",
+        "created_at": "2020-05-14T04:28:03.277Z",
+        "updated_at": "2020-05-14T04:28:03.277Z"
+    }
+},
+{
+    "model": "sor.environment",
+    "pk": 3,
+    "fields": {
+        "name": "STAGING",
+        "category": "STAGE",
+        "description": "Staging environment",
+        "created_at": "2020-05-14T04:28:24.508Z",
+        "updated_at": "2020-05-14T04:28:24.509Z"
+    }
+},
+{
+    "model": "sor.environment",
+    "pk": 4,
+    "fields": {
+        "name": "PRODUCTION",
+        "category": "PROD",
+        "description": "PRODUCTION environment",
+        "created_at": "2020-05-14T04:28:41.921Z",
+        "updated_at": "2020-05-14T04:28:41.921Z"
+    }
+},
+{
+    "model": "sor.domain",
+    "pk": 1,
+    "fields": {
+        "name": "web.com",
+        "location": "US",
+        "owner": 1,
+        "description": "web.com domain",
+        "status": "ACTIVE",
+        "created_at": "2020-05-14T04:29:37.044Z",
+        "updated_at": "2020-05-14T04:29:37.044Z"
+    }
+},
+{
+    "model": "sor.domain",
+    "pk": 2,
+    "fields": {
+        "name": "shop.com",
+        "location": "US Main",
+        "owner": 2,
+        "description": "shop.com domain",
+        "status": "ACTIVE",
+        "created_at": "2020-05-14T04:30:04.105Z",
+        "updated_at": "2020-05-14T04:30:04.105Z"
+    }
+},
+{
+    "model": "sor.domain",
+    "pk": 3,
+    "fields": {
+        "name": "pay.com",
+        "location": "Canada",
+        "owner": 2,
+        "description": "pay.com domain",
+        "status": "INACTIVE",
+        "created_at": "2020-05-14T04:30:49.121Z",
+        "updated_at": "2020-05-14T04:30:49.121Z"
+    }
+},
+{
+    "model": "sor.domain",
+    "pk": 4,
+    "fields": {
+        "name": "db.net",
+        "location": "Canada",
+        "owner": 3,
+        "description": "dba domain",
+        "status": "INACTIVE",
+        "created_at": "2020-05-14T04:31:08.863Z",
+        "updated_at": "2020-05-14T04:31:08.863Z"
+    }
+},
+{
+    "model": "sor.domain",
+    "pk": 5,
+    "fields": {
+        "name": "itranet.net",
+        "location": "Waltham",
+        "owner": 1,
+        "description": "intranet domain",
+        "status": "ACTIVE",
+        "created_at": "2020-05-14T04:34:51.067Z",
+        "updated_at": "2020-05-14T04:34:51.067Z"
+    }
+},
+{
+    "model": "sor.operatingsystem",
+    "pk": 1,
+    "fields": {
+        "name": "CentOS 7.6",
+        "family": "LINUX",
+        "architecture": "64",
+        "version": "7.6",
+        "created_at": "2020-05-14T04:31:54.343Z",
+        "updated_at": "2020-05-14T04:31:54.343Z"
+    }
+},
+{
+    "model": "sor.operatingsystem",
+    "pk": 2,
+    "fields": {
+        "name": "CentOS 8.1",
+        "family": "LINUX",
+        "architecture": "64",
+        "version": "8.1",
+        "created_at": "2020-05-14T04:32:07.114Z",
+        "updated_at": "2020-05-14T04:32:07.114Z"
+    }
+},
+{
+    "model": "sor.operatingsystem",
+    "pk": 3,
+    "fields": {
+        "name": "Ubuntu 18 LTS",
+        "family": "LINUX",
+        "architecture": "64",
+        "version": "18",
+        "created_at": "2020-05-14T04:32:24.819Z",
+        "updated_at": "2020-05-14T04:32:24.819Z"
+    }
+},
+{
+    "model": "sor.operatingsystem",
+    "pk": 4,
+    "fields": {
+        "name": "Ubuntu 20 LTS",
+        "family": "LINUX",
+        "architecture": "64",
+        "version": "20",
+        "created_at": "2020-05-14T04:32:32.235Z",
+        "updated_at": "2020-05-14T04:32:32.235Z"
+    }
+},
+{
+    "model": "sor.operatingsystem",
+    "pk": 5,
+    "fields": {
+        "name": "Redhat 8",
+        "family": "LINUX",
+        "architecture": "64",
+        "version": "8",
+        "created_at": "2020-05-14T04:32:46.487Z",
+        "updated_at": "2020-05-14T04:32:46.487Z"
+    }
+},
+{
+    "model": "sor.operatingsystem",
+    "pk": 6,
+    "fields": {
+        "name": "Windows Server 2012 R2",
+        "family": "LINUX",
+        "architecture": "64",
+        "version": "2012",
+        "created_at": "2020-05-14T04:33:02.828Z",
+        "updated_at": "2020-05-14T04:33:02.828Z"
+    }
+},
+{
+    "model": "sor.operatingsystem",
+    "pk": 7,
+    "fields": {
+        "name": "Windows Server 2018",
+        "family": "LINUX",
+        "architecture": "64",
+        "version": "2018",
+        "created_at": "2020-05-14T04:33:14.723Z",
+        "updated_at": "2020-05-14T04:33:14.723Z"
+    }
+},
+{
+    "model": "sor.server",
+    "pk": 1,
+    "fields": {
+        "name": "nvcilinp01",
+        "ip_address": "127.0.0.1",
+        "category": "BUILD",
+        "owner": 1,
+        "domain": 5,
+        "cluster": 1,
+        "operating_system": 1,
+        "description": "CI Linux Build Server",
+        "status": "ACTIVE",
+        "created_at": "2020-05-14T04:37:08.300Z",
+        "updated_at": "2020-05-14T04:37:08.300Z",
+        "environments": [
+            1
+        ],
+        "labels": [
+            2
+        ]
+    }
+},
+{
+    "model": "sor.server",
+    "pk": 2,
+    "fields": {
+        "name": "nvcilinp02",
+        "ip_address": "127.0.0.2",
+        "category": "BUILD",
+        "owner": 1,
+        "domain": 5,
+        "cluster": 1,
+        "operating_system": 2,
+        "description": "CI Linux Build Server",
+        "status": "ACTIVE",
+        "created_at": "2020-05-14T04:37:30.999Z",
+        "updated_at": "2020-05-14T04:37:30.999Z",
+        "environments": [
+            1
+        ],
+        "labels": []
+    }
+},
+{
+    "model": "sor.server",
+    "pk": 3,
+    "fields": {
+        "name": "nvcdlinp01",
+        "ip_address": "127.0.0.3",
+        "category": "BUILD",
+        "owner": 1,
+        "domain": 5,
+        "cluster": 2,
+        "operating_system": 2,
+        "description": "CD Linux Build Server",
+        "status": "ACTIVE",
+        "created_at": "2020-05-14T04:38:09.879Z",
+        "updated_at": "2020-05-14T04:38:09.879Z",
+        "environments": [
+            1
+        ],
+        "labels": []
+    }
+},
+{
+    "model": "sor.server",
+    "pk": 4,
+    "fields": {
+        "name": "nvcdlinp02",
+        "ip_address": "127.0.0.4",
+        "category": "BUILD",
+        "owner": 1,
+        "domain": 5,
+        "cluster": 2,
+        "operating_system": 2,
+        "description": "CD Linux Build Server",
+        "status": "INACTIVE",
+        "created_at": "2020-05-14T04:38:29.676Z",
+        "updated_at": "2020-05-14T04:38:29.676Z",
+        "environments": [
+            1
+        ],
+        "labels": []
+    }
+},
+{
+    "model": "sor.server",
+    "pk": 5,
+    "fields": {
+        "name": "nvciwinp01",
+        "ip_address": "127.0.0.5",
+        "category": "BUILD",
+        "owner": 1,
+        "domain": 5,
+        "cluster": 3,
+        "operating_system": 7,
+        "description": "CI Windows Build Server",
+        "status": "INACTIVE",
+        "created_at": "2020-05-14T04:39:03.386Z",
+        "updated_at": "2020-05-14T04:43:41.759Z",
+        "environments": [
+            1
+        ],
+        "labels": [
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "sor.server",
+    "pk": 6,
+    "fields": {
+        "name": "nvciwinp02",
+        "ip_address": "127.0.0.6",
+        "category": "BUILD",
+        "owner": 1,
+        "domain": 5,
+        "cluster": 3,
+        "operating_system": 7,
+        "description": "CI Windows Build Server",
+        "status": "INACTIVE",
+        "created_at": "2020-05-14T04:39:28.708Z",
+        "updated_at": "2020-05-14T04:42:48.068Z",
+        "environments": [
+            1
+        ],
+        "labels": []
+    }
+},
+{
+    "model": "sor.server",
+    "pk": 7,
+    "fields": {
+        "name": "nvcdwinp01",
+        "ip_address": "127.0.0.7",
+        "category": "BUILD",
+        "owner": 1,
+        "domain": 5,
+        "cluster": 3,
+        "operating_system": 6,
+        "description": "CD Windows Build Server",
+        "status": "DECOM",
+        "created_at": "2020-05-14T04:40:27.091Z",
+        "updated_at": "2020-05-14T04:40:27.091Z",
+        "environments": [
+            1
+        ],
+        "labels": []
+    }
+},
+{
+    "model": "sor.server",
+    "pk": 8,
+    "fields": {
+        "name": "nvbedrockwebp01",
+        "ip_address": "127.0.0.9",
+        "category": "WEB",
+        "owner": 2,
+        "domain": 1,
+        "cluster": 5,
+        "operating_system": 5,
+        "description": "Bedrock Web production server",
+        "status": "ACTIVE",
+        "created_at": "2020-05-14T04:41:42.958Z",
+        "updated_at": "2020-05-14T04:41:42.958Z",
+        "environments": [
+            4
+        ],
+        "labels": []
+    }
+},
+{
+    "model": "sor.product",
+    "pk": 1,
+    "fields": {
+        "name": "BEDROCK",
+        "port": 443,
+        "version": "0.1",
+        "owner": 1,
+        "link": "https://github.com/sajalshres/bedrock",
+        "repository": "https://github.com/sajalshres/bedrock",
+        "created_at": "2020-05-14T04:48:36.734Z",
+        "updated_at": "2020-05-14T04:48:36.734Z"
+    }
+},
+{
+    "model": "sor.product",
+    "pk": 2,
+    "fields": {
+        "name": "BEDROCK-SOR",
+        "port": 8000,
+        "version": "0.1",
+        "owner": 1,
+        "link": "https://github.com/sajalshres/bedrock",
+        "repository": "https://github.com/sajalshres/bedrock",
+        "created_at": "2020-05-14T04:48:56.130Z",
+        "updated_at": "2020-05-14T04:48:56.131Z"
+    }
+},
+{
+    "model": "sor.product",
+    "pk": 3,
+    "fields": {
+        "name": "BEDROCK-AUTH",
+        "port": 8080,
+        "version": "0.1",
+        "owner": 1,
+        "link": "https://github.com/sajalshres/bedrock",
+        "repository": "https://github.com/sajalshres/bedrock",
+        "created_at": "2020-05-14T04:49:06.029Z",
+        "updated_at": "2020-05-14T04:49:06.029Z"
+    }
+}
+]

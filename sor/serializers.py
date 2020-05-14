@@ -291,6 +291,8 @@ class ProductSerializer(serializers.ModelSerializer):
     """Serializes Product model
     """
 
+    owner = ManyToOneRelatedField()
+
     class Meta:
         model = Product
         fields = [
@@ -302,3 +304,22 @@ class ProductSerializer(serializers.ModelSerializer):
             "link",
             "repository",
         ]
+
+    def create(self, validated_data):
+        return Product.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+
+        instance.save()
+
+        return instance
+
+    def validate_owner(self, value):
+        try:
+            owner = Owner.objects.get(name=value)
+        except Owner.DoesNotExist:
+            msg = "Owner %s matching query does not exist" % value
+            raise ValidationError([msg])
+        return owner
