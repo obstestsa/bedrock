@@ -1,4 +1,9 @@
 {
+  "editor.rulers": [
+    { "column": 79, "color": "#757575" },
+    { "column": 100, "color": "#ff5722" }
+  ],
+  "editor.formatOnSave": true,
   "python.formatting.provider": "black",
   "python.formatting.blackArgs": ["--line-length", "79"],
   "python.linting.enabled": true,
