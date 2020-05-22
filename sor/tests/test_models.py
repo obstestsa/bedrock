@@ -3,7 +3,16 @@
 
 from django.test import TestCase
 from django.core.exceptions import ObjectDoesNotExist
-from sor.models import Label, Owner, Cluster, Environment, Domain
+from sor.models import (
+    Label,
+    Owner,
+    Cluster,
+    Environment,
+    Domain,
+    OperatingSystem,
+    Server,
+    Product,
+)
 
 
 class LabelModelTestCase(TestCase):
@@ -33,10 +42,14 @@ class LabelModelTestCase(TestCase):
         self.assertEqual(self.model_instance.name, "test")
 
     def test_label_is_updated(self):
+        """Test Label can be updated
+        """
         setattr(self.model_instance, "name", "test_updated")
         self.assertEqual(self.model_instance.name, "test_updated")
 
     def test_label_is_destroyed(self):
+        """Test Label can be deleted
+        """
         self.model_instance.delete()
 
         with self.assertRaises(ObjectDoesNotExist):
@@ -202,3 +215,174 @@ class DomainModelTestCase(TestCase):
 
         with self.assertRaises(ObjectDoesNotExist):
             Domain.objects.get(name="domain.a")
+
+
+class OperatingSystemModelTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.model_instance = OperatingSystem.objects.create(
+            name="CENT OS", family="LINUX", architecture="64", version="8.0"
+        )
+
+    def test_operating_system_verbose_name(self):
+        """Test operating_system verbose name
+        """
+        self.assertEqual(
+            OperatingSystem._meta.verbose_name, "Operating System"
+        )
+        self.assertEqual(
+            OperatingSystem._meta.verbose_name_plural, "Operating Systems"
+        )
+
+    def test_operating_system_create(self):
+        """Test operating_system can be created
+        """
+        b_operating_system = OperatingSystem.objects.create(
+            name="CENT OS B", family="LINUX", architecture="64", version="8.0"
+        )
+        self.assertIsInstance(b_operating_system, OperatingSystem)
+        self.assertEqual(b_operating_system.__str__(), b_operating_system.name)
+        self.assertEqual(b_operating_system.name, "CENT OS B")
+
+    def test_operating_system_is_updated(self):
+        """Test operating_system can be updated
+        """
+        setattr(self.model_instance, "name", "CENT OS B updated")
+        self.assertEqual(self.model_instance.name, "CENT OS B updated")
+
+    def test_operating_system_is_destroyed(self):
+        """Test operating_system can be removed
+        """
+        self.model_instance.delete()
+
+        with self.assertRaises(ObjectDoesNotExist):
+            OperatingSystem.objects.get(name="CENT OS")
+
+
+class ServerModelTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.owner_instance = Owner.objects.create(
+            name="OWNERA", email="owner@example.com", description="A owner"
+        )
+        cls.domain_instance = Domain.objects.create(
+            name="domain.a",
+            location="USA",
+            owner=cls.owner_instance,
+            description="Domain A",
+        )
+        cls.cluster_instance = Cluster.objects.create(
+            name="CLUSTERA", description="A test cluster"
+        )
+        cls.os_instance = OperatingSystem.objects.create(
+            name="CENT OS", family="LINUX", architecture="64", version="8.0"
+        )
+        cls.env_instance = Environment.objects.create(
+            name="ENVA", category="DEV", description="Environment A"
+        )
+        cls.label_instance = Label.objects.create(name="test")
+        cls.model_instance = Server.objects.create(
+            name="testserverd1",
+            ip_address="127.0.0.1",
+            category="APP",
+            owner=cls.owner_instance,
+            domain=cls.domain_instance,
+            cluster=cls.cluster_instance,
+            operating_system=cls.os_instance,
+            description="A test server",
+            status="INACTIVE",
+        )
+        cls.model_instance.environments.add(cls.env_instance)
+        cls.model_instance.labels.add(cls.label_instance)
+
+    def test_server_verbose_name(self):
+        """Test server verbose name
+        """
+        self.assertEqual(Server._meta.verbose_name, "Server")
+        self.assertEqual(Server._meta.verbose_name_plural, "Servers")
+
+    def test_server_create(self):
+        """Test server can be created
+        """
+        b_server = Server.objects.create(
+            name="testserverd2",
+            ip_address="127.0.0.2",
+            category="APP",
+            owner=self.owner_instance,
+            domain=self.domain_instance,
+            cluster=self.cluster_instance,
+            operating_system=self.os_instance,
+            description="A test server 2",
+            status="INACTIVE",
+        )
+        self.model_instance.environments.add(self.env_instance)
+        self.model_instance.labels.add(self.label_instance)
+
+        self.assertIsInstance(b_server, Server)
+        self.assertEqual(b_server.__str__(), b_server.name)
+        self.assertEqual(b_server.name, "testserverd2")
+
+    def test_server_is_updated(self):
+        """Test server can be updated
+        """
+        setattr(self.model_instance, "name", "testserverd1_updated")
+        self.assertEqual(self.model_instance.name, "testserverd1_updated")
+
+    def test_server_is_destroyed(self):
+        """Test server can be removed
+        """
+        self.model_instance.delete()
+
+        with self.assertRaises(ObjectDoesNotExist):
+            Server.objects.get(name="testserverd1")
+
+
+class ProductModelTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.owner_instance = Owner.objects.create(
+            name="OWNERA", email="owner@example.com", description="A owner"
+        )
+        cls.model_instance = Product.objects.create(
+            name="Product A",
+            port="9000",
+            version="2.0.1",
+            owner=cls.owner_instance,
+            link="https://test.com",
+            repository="https://test.com/repo",
+        )
+
+    def test_product_verbose_name(self):
+        """Test product verbose name
+        """
+        self.assertEqual(Product._meta.verbose_name, "Product")
+        self.assertEqual(Product._meta.verbose_name_plural, "Products")
+
+    def test_product_create(self):
+        """Test product can be created
+        """
+        b_product = Product.objects.create(
+            name="Product B",
+            port="9000",
+            version="2.0.1",
+            owner=self.owner_instance,
+            link="https://test.com",
+            repository="https://test.com/repo",
+        )
+        self.assertIsInstance(b_product, Product)
+        self.assertEqual(b_product.__str__(), b_product.name)
+        self.assertEqual(b_product.name, "Product B")
+
+    def test_product_is_updated(self):
+        """Test product can be updated
+        """
+        setattr(self.model_instance, "name", "Product A_updated")
+        self.assertEqual(self.model_instance.name, "Product A_updated")
+
+    def test_product_is_destroyed(self):
+        """Test product can be removed
+        """
+        self.model_instance.delete()
+
+        with self.assertRaises(ObjectDoesNotExist):
+            Product.objects.get(name="Product A")
