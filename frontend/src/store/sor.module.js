@@ -4,6 +4,9 @@ import action from './actions.type';
 
 const state = {
   servers: [],
+  environments: [],
+  clusters: [],
+  products: [],
   loading: true,
   error: null,
 };
@@ -12,8 +15,13 @@ const getters = {
   isLoading(state) {
     return state.loading;
   },
-  getServers(state) {
-    return state.servers;
+  getResource: state => type => {
+    return state[type];
+  },
+  getResourceByField: state => (type, field, value) => {
+    return state[type].filter(resource => {
+      return resource[field] === value;
+    });
   },
 };
 
@@ -42,7 +50,7 @@ const mutations = {
 const actions = {
   [action.FETCH_RESOURCES]({ commit }, type) {
     commit(mutation.FETCH_PENDING, true);
-    return ApiService.get(type)
+    return ApiService.get(`sor/${type}`)
       .then(response => {
         commit(mutation.SET_RESOURCES, {
           type: type,

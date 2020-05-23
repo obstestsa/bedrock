@@ -2,11 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
-import Server from '../views/Server.vue';
-import Environment from '../views/Environment.vue';
-import ClusterList from '../views/ClusterList.vue';
-import ApplicationList from '../views/ApplicationList.vue';
-import OperatingSystemList from '../views/OperatingSystemList.vue';
+import Servers from '../views/Servers.vue';
+import Environments from '../views/Environments.vue';
+import Clusters from '../views/Clusters.vue';
+import Products from '../views/Products.vue';
+import OperatingSystems from '../views/OperatingSystems.vue';
 
 Vue.use(VueRouter);
 
@@ -27,27 +27,27 @@ const routes = [
   {
     path: '/sor/server',
     name: 'server',
-    component: Server,
+    component: Servers,
   },
   {
     path: '/sor/environment',
     name: 'environment',
-    component: Environment,
+    component: Environments,
   },
   {
     path: '/sor/cluster',
     name: 'cluster',
-    component: ClusterList,
+    component: Clusters,
   },
   {
-    path: '/sor/application',
-    name: 'application',
-    component: ApplicationList,
+    path: '/sor/product',
+    name: 'product',
+    component: Products,
   },
   {
     path: '/sor/os',
     name: 'operating-system',
-    component: OperatingSystemList,
+    component: OperatingSystems,
   },
 ];
 

@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <BreadCrumbs :breadCrumbs="breadCrumbs" />
+    <BreadCrumbs />
     <v-card>
       <v-card-title>
         <v-text-field
@@ -14,8 +14,8 @@
         <v-spacer />
         <v-dialog v-if="isAuthenticated" v-model="dialog" max-width="600px">
           <template v-slot:activator="{ on }">
-            <v-btn class="mx-2" depressed v-on="on">
-              ADD
+            <v-btn class="mx-2" depressed fab small v-on="on">
+              <v-icon>mdi-plus</v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -119,11 +119,14 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <v-btn class="mx-2" depressed fab small @click="loadResources(true)">
+          <v-icon dark>mdi-reload</v-icon>
+        </v-btn>
         <v-switch class="mx-2" label="Small" v-model="dense"></v-switch>
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="getServers"
+        :items="getResource(resourceType)"
         :search="search"
         :single-expand="singleExpand"
         :expanded.sync="expanded"
@@ -134,6 +137,9 @@
         show-expand
         class="elevation-1"
       >
+        <template v-slot:item.name="{ item }">
+          {{ item.name }} ({{ getServer(item.name).length }})
+        </template>
         <template v-slot:item.status="{ item }">
           <v-chip :small="dense" :color="getStatusColor(item.status)" dark>{{
             item.status
@@ -148,7 +154,17 @@
           </v-icon>
         </template>
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length">{{ item.description }}</td>
+          <td :colspan="headers.length">
+            <v-chip
+              v-for="server in getServer(item.name)"
+              :key="server.id"
+              :color="getStatusColor(server.status)"
+              :small="dense"
+              dark
+              class="mx-2"
+              >{{ server.name }}</v-chip
+            >
+          </td>
         </template>
       </v-data-table>
     </v-card>
@@ -166,63 +182,43 @@ import {
 import BreadCrumbs from '../components/BreadCrumbs';
 
 export default {
-  name: 'Server',
+  name: 'Environments',
   components: {
     BreadCrumbs,
   },
   data: () => ({
-    breadCrumbs: ['Home', 'Sor', 'Server'], // TODO: Make breadCrumbs dynamic
-    loadingText: 'Loading Servers, Please wait.',
+    resourceType: 'environments',
+    loadingText: 'Loading environments, please wait.',
     dense: false,
     dialog: false,
     expanded: [],
     singleExpand: true,
     search: '',
     headers: [
-      { text: 'Name', align: 'start', value: 'name' },
-      { text: 'IP Address', value: 'ip_address' },
-      { text: 'Category', value: 'category' },
-      { text: 'Owner', value: 'owner' },
-      { text: 'Domain', value: 'domain' },
-      { text: 'Cluster', value: 'cluster' },
-      { text: 'Environment', value: 'environment' },
-      { text: 'Operating System', value: 'operating_system' },
-      { text: 'Status', value: 'status', align: 'center' },
+      { text: 'Name', align: 'start', value: 'name', width: '90%' },
+      { text: 'Status', value: 'status' },
     ],
-    servers: [],
+    environments: [],
     editedIndex: -1,
     editedItem: {
       name: '',
-      ip_address: '',
-      category: '',
-      owner: '',
-      domain: '',
-      cluster: '',
-      environment: '',
-      operating_system: '',
-      status: '',
       description: '',
+      status: '',
     },
     defaultItem: {
       name: '',
-      ip_address: '',
-      category: '',
-      owner: '',
-      domain: '',
-      cluster: '',
-      environment: '',
-      operating_system: '',
-      status: '',
       description: '',
+      status: '',
     },
   }),
   created() {
-    this.fetchResources('servers');
+    this.loadResources();
     if (this.isAuthenticated) {
       this.headers.push({
         text: 'Actions',
         value: 'actions',
         sortable: false,
+        width: '10%',
       });
     }
     this.headers.push({ text: '', value: 'data-table-expand' });
@@ -232,7 +228,8 @@ export default {
       return this.editedIndex === -1 ? 'New Server' : 'Edit Server';
     },
     ...mapGetters({
-      getServers: 'getServers',
+      getResource: 'getResource',
+      getResourceByField: 'getResourceByField',
       isLoading: 'isLoading',
       isAuthenticated: 'isAuthenticated',
     }),
@@ -243,17 +240,24 @@ export default {
     },
   },
   methods: {
+    loadResources(force = false) {
+      if (this.getResource(this.resourceType).length === 0 || force) {
+        this.fetchResources(this.resourceType);
+      }
+      if (this.getResource('servers').length === 0 || force) {
+        this.fetchResources('servers');
+      }
+    },
     editItem(item) {
-      this.editedIndex = this.getServers.indexOf(item);
+      this.editedIndex = this.getResource(this.resourceType).indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(id) {
       confirm('Are you sure you want to delete this item?') &&
-        this.removeResource({ type: 'servers', id: id });
+        this.removeResource({ type: 'environments', id: id });
     },
-
     close() {
       this.dialog = false;
       setTimeout(() => {
@@ -265,16 +269,20 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         this.updateResource({
-          type: 'servers',
+          type: 'environments',
           resource: this.editedItem,
         });
       } else {
         this.createResource({
-          type: 'servers',
+          type: 'environments',
           resource: this.editedItem,
         });
       }
       this.close();
+    },
+
+    getServer(environmentName) {
+      return this.getResourceByField('servers', 'environment', environmentName);
     },
 
     getStatusColor(status) {

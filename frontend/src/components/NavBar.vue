@@ -138,8 +138,8 @@ export default {
       },
       {
         icon: 'mdi-laptop',
-        title: 'Application',
-        link: { name: 'application' },
+        title: 'Products',
+        link: { name: 'product' },
       },
       {
         icon: 'mdi-microsoft-windows',

@@ -2,7 +2,7 @@ import axios from 'axios';
 import JwtService from './jwt.service';
 
 const ApiClient = axios.create({
-  baseURL: 'http://localhost:8081',
+  baseURL: '/api',
   withCredentials: false,
   headers: {
     Accept: 'application/json',

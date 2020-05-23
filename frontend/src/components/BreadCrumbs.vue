@@ -1,5 +1,5 @@
 <template>
-  <v-breadcrumbs :items="breadCrumbs">
+  <v-breadcrumbs :items="getBreadCrumbs">
     <template v-slot:item="{ item }">
       <v-breadcrumbs-item>
         {{ item.toUpperCase() }}
@@ -10,10 +10,11 @@
 
 <script>
 export default {
-  props: {
-    breadCrumbs: {
-      type: Array,
-      mandatory: true,
+  computed: {
+    getBreadCrumbs() {
+      let breadCrumbs = ['Home'];
+      const currentPath = this.$route.path.split('/');
+      return breadCrumbs.concat(currentPath.splice(1, currentPath.length));
     },
   },
 };
