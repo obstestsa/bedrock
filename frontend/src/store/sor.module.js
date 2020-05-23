@@ -1,4 +1,4 @@
-import ApiService from '../services/api.service';
+import ApiService, { SorApiService } from '../services/api.service';
 import mutation from './mutations.type';
 import action from './actions.type';
 
@@ -50,7 +50,7 @@ const mutations = {
 const actions = {
   [action.FETCH_RESOURCES]({ commit }, type) {
     commit(mutation.FETCH_PENDING, true);
-    return ApiService.get(`sor/${type}`)
+    return SorApiService.get(type)
       .then(response => {
         commit(mutation.SET_RESOURCES, {
           type: type,
@@ -69,7 +69,7 @@ const actions = {
   },
   [action.RESOURCE_CREATE]({ commit }, { type, resource }) {
     commit(mutation.FETCH_PENDING, true);
-    return ApiService.post(type, resource)
+    return SorApiService.post(type, resource)
       .then(response => {
         commit(mutation.RESOURCE_ADD, {
           type: type,
@@ -88,7 +88,7 @@ const actions = {
   },
   [action.RESOURCE_UPDATE]({ commit }, { type, resource }) {
     commit(mutation.FETCH_PENDING, true);
-    return ApiService.update(type, resource.id, resource)
+    return SorApiService.update(type, resource.id, resource)
       .then(response => {
         commit(mutation.RESOURCE_EDIT, {
           type: type,
@@ -107,7 +107,7 @@ const actions = {
   },
   [action.RESOURCE_DELETE]({ commit }, { type, id }) {
     commit(mutation.FETCH_PENDING, true);
-    return ApiService.delete(`${type}/${id}`)
+    return SorApiService.delete(`${type}/${id}`)
       .then(response => {
         commit(mutation.FETCH_PENDING, false);
         commit(mutation.RESOURCE_REMOVE, { type: type, id: id });
