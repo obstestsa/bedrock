@@ -1,12 +1,29 @@
 {
+  // editor settings
   "editor.rulers": [
     { "column": 79, "color": "#757575" },
     { "column": 100, "color": "#ff5722" }
   ],
   "editor.formatOnSave": true,
+  // files settings
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
+  },
+  "files.associations": {
+    "Dockerfile.*": "dockerfile",
+    "docker-compose.*": "yaml"
+  },
   "python.formatting.provider": "black",
   "python.formatting.blackArgs": ["--line-length", "79"],
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true
+  "python.linting.flake8Enabled": true,
+  // javascript settings
+  "eslint.enable": true,
+  "vetur.validation.template": false,
+  "eslint.validate": ["vue", "html", "javascript"],
+  "emmet.includeLanguages": { "vue": "html" },
+  "eslint.workingDirectories": ["./frontend"]
 }
