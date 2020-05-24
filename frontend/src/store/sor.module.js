@@ -1,4 +1,4 @@
-import ApiService, { SorApiService } from '../services/api.service';
+import { SorApiService } from '../services/api.service';
 import mutation from './mutations.type';
 import action from './actions.type';
 
@@ -20,6 +20,9 @@ const getters = {
   },
   getResourceByField: state => (type, field, value) => {
     return state[type].filter(resource => {
+      if (Array.isArray(resource[field])) {
+        return resource[field].includes(value);
+      }
       return resource[field] === value;
     });
   },

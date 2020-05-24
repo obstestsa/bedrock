@@ -140,11 +140,6 @@
         <template v-slot:item.name="{ item }">
           {{ item.name }} ({{ getServerByCluster(item.name).length }})
         </template>
-        <template v-slot:item.status="{ item }">
-          <v-chip :small="dense" :color="getStatusColor(item.status)" dark>{{
-            item.status
-          }}</v-chip>
-        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)">
             mdi-pencil
@@ -195,8 +190,8 @@ export default {
     singleExpand: true,
     search: '',
     headers: [
-      { text: 'Name', align: 'start', value: 'name', width: '90%' },
-      { text: 'Status', value: 'status' },
+      { text: 'Name', align: 'start', value: 'name', width: '40%' },
+      { text: 'Info', align: 'end', value: 'description' },
     ],
     editedIndex: -1,
     editedItem: {
@@ -285,8 +280,8 @@ export default {
     },
 
     getStatusColor(status) {
-      if (status === 'Active') return 'green';
-      else if (status === 'Inactive') return 'orange';
+      if (status === 'ACTIVE') return 'green';
+      else if (status === 'INACTIVE') return 'orange';
       else return 'red';
     },
     ...mapActions({

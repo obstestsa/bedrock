@@ -140,10 +140,8 @@
         <template v-slot:item.name="{ item }">
           {{ item.name }} ({{ getServer(item.name).length }})
         </template>
-        <template v-slot:item.status="{ item }">
-          <v-chip :small="dense" :color="getStatusColor(item.status)" dark>{{
-            item.status
-          }}</v-chip>
+        <template v-slot:item.category="{ item }">
+          <v-chip small label>{{ item.category }}</v-chip>
         </template>
         <template v-slot:item.actions="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)">
@@ -196,7 +194,7 @@ export default {
     search: '',
     headers: [
       { text: 'Name', align: 'start', value: 'name', width: '90%' },
-      { text: 'Status', value: 'status' },
+      { text: 'Category', value: 'category' },
     ],
     environments: [],
     editedIndex: -1,
@@ -282,12 +280,16 @@ export default {
     },
 
     getServer(environmentName) {
-      return this.getResourceByField('servers', 'environment', environmentName);
+      return this.getResourceByField(
+        'servers',
+        'environments',
+        environmentName
+      );
     },
 
     getStatusColor(status) {
-      if (status === 'Active') return 'green';
-      else if (status === 'Inactive') return 'orange';
+      if (status === 'ACTIVE') return 'green';
+      else if (status === 'INACTIVE') return 'orange';
       else return 'red';
     },
     ...mapActions({

@@ -137,10 +137,34 @@
         show-expand
         class="elevation-1"
       >
+        <template v-slot:item.environments="{ item }">
+          <v-chip
+            label
+            small
+            class="ml-2 my-2"
+            v-for="environment in item.environments"
+            :key="environment"
+            >{{ environment }}</v-chip
+          >
+        </template>
+        <template v-slot:item.labels="{ item }">
+          <v-chip
+            label
+            small
+            class="ml-2 my-2"
+            v-for="label in item.labels"
+            :key="label"
+            >{{ label }}</v-chip
+          >
+        </template>
         <template v-slot:item.status="{ item }">
-          <v-chip :small="dense" :color="getStatusColor(item.status)" dark>{{
-            item.status
-          }}</v-chip>
+          <v-chip
+            small
+            :x-small="dense"
+            :color="getStatusColor(item.status)"
+            dark
+            >{{ item.status }}</v-chip
+          >
         </template>
         <template v-slot:item.actions="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)">
@@ -189,8 +213,9 @@ export default {
       { text: 'Owner', value: 'owner' },
       { text: 'Domain', value: 'domain' },
       { text: 'Cluster', value: 'cluster' },
-      { text: 'Environment', value: 'environment' },
+      { text: 'Environments', value: 'environments' },
       { text: 'Operating System', value: 'operating_system' },
+      { text: 'Labels', value: 'labels', align: 'left' },
       { text: 'Status', value: 'status', align: 'left' },
     ],
     editedIndex: -1,
@@ -201,8 +226,9 @@ export default {
       owner: '',
       domain: '',
       cluster: '',
-      environment: '',
+      environments: [],
       operating_system: '',
+      labels: [],
       status: '',
       description: '',
     },
@@ -213,8 +239,9 @@ export default {
       owner: '',
       domain: '',
       cluster: '',
-      environment: '',
+      environments: [],
       operating_system: '',
+      labels: [],
       status: '',
       description: '',
     },
@@ -289,8 +316,8 @@ export default {
     },
 
     getStatusColor(status) {
-      if (status === 'Active') return 'green';
-      else if (status === 'Inactive') return 'orange';
+      if (status === 'ACTIVE') return 'green';
+      else if (status === 'INACTIVE') return 'orange';
       else return 'red';
     },
     ...mapActions({
