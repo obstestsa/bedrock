@@ -90,9 +90,10 @@ const actions = {
         JwtService.setToken({ access: data.acess });
       })
       .catch(error => {
+        commit(mutation.PURGE_AUTH);
         commit(mutation.SET_SNACKBAR, {
-          message: error.message,
-          color: 'error',
+          message: 'Token Refresh Failed, Logged Out!',
+          color: 'amber',
         });
       });
   },

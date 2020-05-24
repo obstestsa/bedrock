@@ -18,7 +18,11 @@ const ApiService = {
     ] = `Bearer ${JwtService.getToken()}`;
   },
   get(resource, slug = '') {
-    return ApiClient.get(`${resource}/${slug}`);
+    return ApiClient.get(`${resource}/${slug}`, {
+      headers: {
+        Authorization: '',
+      },
+    });
   },
   post(resource, params) {
     return ApiClient.post(`${resource}`, params);

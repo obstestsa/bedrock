@@ -253,6 +253,7 @@ export default {
       this.headers.push({
         text: 'Actions',
         value: 'actions',
+        align: 'end',
         sortable: false,
       });
     }

@@ -196,7 +196,7 @@ export default {
     search: '',
     headers: [
       { text: 'Name', align: 'start', value: 'name', width: '90%' },
-      { text: 'Category', value: 'category' },
+      { text: 'Category', align: 'end', value: 'category', width: '10%' },
     ],
     environments: [],
     editedIndex: -1,
@@ -214,9 +214,11 @@ export default {
   created() {
     this.loadResources();
     if (this.isAuthenticated) {
+      this.headers[0].width = '80%';
       this.headers.push({
         text: 'Actions',
         value: 'actions',
+        align: 'end',
         sortable: false,
         width: '10%',
       });
