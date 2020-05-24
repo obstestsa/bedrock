@@ -10,6 +10,7 @@ export const LOGIN = 'login';
 export const LOGOUT = 'logout';
 export const USER_UPDATE = 'updateUser';
 export const CHECK_AUTH = 'checkAuth';
+export const REFRESH_AUTH = 'refreshAuth';
 
 export default {
   FETCH_RESOURCES,
@@ -21,4 +22,5 @@ export default {
   LOGOUT,
   USER_UPDATE,
   CHECK_AUTH,
+  REFRESH_AUTH,
 };

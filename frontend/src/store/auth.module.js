@@ -24,9 +24,12 @@ const mutations = {
   },
   [mutation.SET_AUTH](state, user) {
     state.isAuthenticated = true;
-    state.user = user;
+    state.user = { ...state.user, username: user.username, email: user.email };
     state.error = {};
-    JwtService.setToken(state.user.access_token);
+    JwtService.setToken({
+      access: user.access,
+      refresh: user.refresh,
+    });
   },
   [mutation.PURGE_AUTH](state) {
     state.isAuthenticated = false;
@@ -39,7 +42,7 @@ const mutations = {
 const actions = {
   [action.LOGIN]({ commit }, { username, password }) {
     return new Promise(resolve => {
-      ApiService.post('auth/login', {
+      ApiService.post('auth/token/', {
         username: username,
         password: password,
       })
@@ -71,12 +74,27 @@ const actions = {
       color: 'success',
     });
   },
-  [action.CHECK_AUTH]({ commit }) {
+  [action.CHECK_AUTH]({ commit, dispatch }) {
     if (JwtService.getToken()) {
       ApiService.setHeader();
+      dispatch(action.REFRESH_AUTH);
     } else {
       commit(mutation.PURGE_AUTH);
     }
+  },
+  [action.REFRESH_AUTH]({ commit }) {
+    return ApiService.post('auth/token/refresh/', {
+      refresh: JwtService.getToken(JwtService.ID_REFRESH_TOKEN),
+    })
+      .then(({ data }) => {
+        JwtService.setToken({ access: data.acess });
+      })
+      .catch(error => {
+        commit(mutation.SET_SNACKBAR, {
+          message: error.message,
+          color: 'error',
+        });
+      });
   },
 };
 

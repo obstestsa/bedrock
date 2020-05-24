@@ -171,6 +171,8 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { getStatusColor } from '../utils/common';
+
 import {
   FETCH_RESOURCES,
   RESOURCE_CREATE,
@@ -287,11 +289,8 @@ export default {
       );
     },
 
-    getStatusColor(status) {
-      if (status === 'ACTIVE') return 'green';
-      else if (status === 'INACTIVE') return 'orange';
-      else return 'red';
-    },
+    getStatusColor: getStatusColor,
+
     ...mapActions({
       fetchResources: FETCH_RESOURCES,
       createResource: RESOURCE_CREATE,
